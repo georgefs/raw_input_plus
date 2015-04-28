@@ -25,7 +25,7 @@ class Field(object):
 
     def raw_input(self, name="input"):
         description = self.description
-        print self.description_format.format(locals())
+        print self.description_format.format(**locals())
         while True:
             _input = raw_input("{}:".format(name))
             if self.strip:
@@ -33,6 +33,7 @@ class Field(object):
             if self.validator(_input):
                 return self.to_data(_input)
 
+    @property
     def _validators(self):
         return self.validators + self.default_validators
 

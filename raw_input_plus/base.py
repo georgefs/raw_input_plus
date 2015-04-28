@@ -13,11 +13,12 @@ class Field(object):
     description_format = ''' {description} '''
     default_description = 'this field is string'
     
-    def __init__(self, description='', null=False, validators=[], strip=True):
+    def __init__(self, description='', default=None, null=False, validators=[], strip=True):
         self._description = description or self.default_description
         self.null=null
         self.validators = validators
         self.strip = strip
+        self.default = default
 
     @property
     def description(self):
@@ -28,10 +29,17 @@ class Field(object):
         print self.description_format.format(**locals())
         while True:
             _input = raw_input("{}:".format(name))
-            if self.strip:
-                _input = _input.strip()
-            if self.validator(_input):
-                return self.to_data(_input)
+            try:
+                if self.strip:
+                    _input = _input.strip()
+                if not _input and self.default != None:
+                    return self.default
+                if self.validator(_input) :
+                    return self.to_data(_input)
+
+            except Exception as e:
+                print e
+                pass
 
     @property
     def _validators(self):
@@ -59,4 +67,3 @@ class FieldSet(object):
 
 
 
-print Field(description='test').raw_input()

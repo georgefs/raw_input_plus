@@ -5,5 +5,6 @@
 #
 # Distributed under terms of the MIT license.
 
-from base import Field, FieldSet
+from base import  FieldSet
+from raw_input_plus.fields import *
 

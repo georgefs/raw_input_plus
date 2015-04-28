@@ -5,5 +5,7 @@
 #
 # Distributed under terms of the MIT license.
 
-from . import *
-
+from FloatField import FloatField
+from IntField import IntField
+from StringField import StringField
+from ChoiceField import ChoiceField

@@ -8,11 +8,17 @@
 
 from raw_input_plus.base import Field
 import re
+import collections
 
 class ChoiceField(Field):
     default_validators = []
     ## key need string
     def __init__(self, choice=None, validators=None, *args, **kwargs):
+
+        if isinstance(choice, (list, tuple)):
+            count = 0
+            choice = dict((str(idx), choice[idx]) for idx in range(len(choice)) )
+
         validators = validators or []
         assert choice, 'error not set '
         self.choice = choice

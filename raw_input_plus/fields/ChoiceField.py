@@ -23,7 +23,7 @@ class ChoiceField(Field):
         assert choice, 'error not set '
         self.choice = choice
         
-        validators.append(lambda v:v in [k for k in choice.keys()])
+        validators.append(lambda v:v in [k for k in choice.keys() + choice.values()])
             
         kwargs.update({"validators": validators})
 
@@ -38,6 +38,9 @@ class ChoiceField(Field):
         return super(ChoiceField, self).__init__(*args, **kwargs)
     
     def to_data(self, value):
-        return self.choice.get(value)
-        
+        if self.choice.has_key(value):
+            return self.choice.get(value)
+        elif value in self.choice.values():
+            return value
+        raise Exception('error')
 

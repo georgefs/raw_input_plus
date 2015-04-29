@@ -46,6 +46,19 @@ class FieldTest(unittest.TestCase):
             self.assertEqual(result, "test2")
             self.assertEqual(mock_input.call_count, 2)
 
+        with patch('__builtin__.raw_input') as mock_input:
+            ## Sequence raw input 
+            print raw_input
+            mock_input.side_effect = ["a", "1", "b"]
+            ## choice 
+            choice = [
+                "test1",
+                "test2",
+                "test3"
+            ]
+            result = ChoiceField(choice=choice).raw_input()
+            self.assertEqual(result, "test2")
+            self.assertEqual(mock_input.call_count, 2)
 
     def test_datetime_field(self):
         with patch('__builtin__.raw_input') as mock_input:

@@ -13,12 +13,15 @@ class Field(object):
     description_format = ''' {description} '''
     default_description = 'this field is string'
     
-    def __init__(self, description='', default=None, null=False, validators=[], strip=True):
+    def __init__(self, description='', null=False, validators=[], strip=True, **kwargs):
         self._description = description or self.default_description
         self.null=null
         self.validators = validators
         self.strip = strip
-        self.default = default
+
+        if kwargs.has_key('default'):
+            self.default = kwargs['default']
+
 
     @property
     def description(self):
@@ -32,7 +35,7 @@ class Field(object):
             try:
                 if self.strip:
                     _input = _input.strip()
-                if not _input and self.default != None:
+                if not _input and hasattr(self, 'default'):
                     return self.default
                 if self.validator(_input) :
                     return self.to_data(_input)

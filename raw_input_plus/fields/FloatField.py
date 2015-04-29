@@ -22,5 +22,5 @@ class FloatField(Field):
         return super(FloatField, self).__init__(*args, **kwargs)
 
     def to_data(self, value):
-        return int(value)
+        return float(value)
 

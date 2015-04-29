@@ -5,7 +5,8 @@ from datetime import datetime
 class DateTimeField(Field):
     default_validators = []
 
-    def __init__(self, datetime_format="%Y-%m-%d", validators=[], start_time=None, end_time=None, *args, **kwargs):
+    def __init__(self, datetime_format="%Y-%m-%d", validators=None, start_time=None, end_time=None, *args, **kwargs):
+        validators = validators or []
 
         self.datetime_format = datetime_format
         if isinstance(start_time, datetime):

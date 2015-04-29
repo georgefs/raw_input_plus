@@ -12,7 +12,8 @@ import re
 class ChoiceField(Field):
     default_validators = []
     ## key need string
-    def __init__(self, choice=None, validators=[], *args, **kwargs):
+    def __init__(self, choice=None, validators=None, *args, **kwargs):
+        validators = validators or []
         assert choice, 'error not set '
         self.choice = choice
         

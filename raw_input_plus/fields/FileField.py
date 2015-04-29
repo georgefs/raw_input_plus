@@ -13,3 +13,5 @@ class FileField(Field):
     '''
     default_validators = [check_file_exist]
 
+    def to_data(self, value):
+        return open(value)

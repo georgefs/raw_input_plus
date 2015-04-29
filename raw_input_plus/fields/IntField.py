@@ -7,15 +7,17 @@
 
 from raw_input_plus.base import Field
 import re
+import numbers
 
 class IntField(Field):
-    default_validators = [lambda v:re.match("^\d+$", v)]
+    default_validators = [lambda v:re.match("^-?\d+$", v)]
     default_description = " int "
-    def __init__(self, max_number=None, min_number=None, validators=[], *args, **kwargs):
-        if isinstance(max_number, int):
+    def __init__(self, max_number=None, min_number=None, validators=None, *args, **kwargs):
+        validators = validators or []
+        if isinstance(max_number, numbers.Number):
             validators.append(lambda v:int(v)<=max_number)
 
-        if isinstance(min_number, int):
+        if isinstance(min_number, numbers.Number):
             validators.append(lambda v:int(v)>=min_number)
         
         kwargs.update({'validators': validators})

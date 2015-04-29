@@ -83,6 +83,7 @@ class FieldTest(unittest.TestCase):
 
             result = FileField().raw_input()
             self.assertEqual(mock_input.call_count, 2)
+            self.assertEqual(result.name, curr)
 
 
     def test_int_field(self):
@@ -96,6 +97,34 @@ class FieldTest(unittest.TestCase):
             self.assertEqual(int(curr), result)
 
 
+        ## test max number 
+        with patch('__builtin__.raw_input') as mock_input:
+            ## Sequence raw input 
+            mock_input.side_effect = ["101", "100", "-10"]
+
+            result = IntField(max_number=100).raw_input()
+            self.assertEqual(mock_input.call_count, 2)
+            self.assertEqual(100, result)
+
+        ## test max number 
+        with patch('__builtin__.raw_input') as mock_input:
+            ## Sequence raw input 
+            mock_input.side_effect = ["-10", "100", "-10"]
+
+            result = IntField(min_number=1).raw_input()
+            self.assertEqual(mock_input.call_count, 2)
+            self.assertEqual(100, result)
+
+        ## test between
+        with patch('__builtin__.raw_input') as mock_input:
+            ## Sequence raw input 
+            mock_input.side_effect = ["-10", "1000", "100"]
+
+            result = IntField(min_number=1, max_number=100).raw_input()
+            self.assertEqual(mock_input.call_count, 3)
+            self.assertEqual(100, result)
+
+
     def test_float_field(self):
         with patch('__builtin__.raw_input') as mock_input:
             ## Sequence raw input 
@@ -107,11 +136,79 @@ class FieldTest(unittest.TestCase):
             self.assertEqual(result, float(curr))
 
 
+        ## test max number 
+        with patch('__builtin__.raw_input') as mock_input:
+            ## Sequence raw input 
+            mock_input.side_effect = ["101", "100", "-10"]
+
+            print result
+            result = FloatField(max_number=100).raw_input()
+            self.assertEqual(100, result)
+            self.assertEqual(mock_input.call_count, 2)
+
+        ## test max number 
+        with patch('__builtin__.raw_input') as mock_input:
+            ## Sequence raw input 
+            mock_input.side_effect = ["-10", "100", "-10"]
+
+            result = FloatField(min_number=1).raw_input()
+            self.assertEqual(mock_input.call_count, 2)
+            self.assertEqual(100, result)
+
+        ## test between
+        with patch('__builtin__.raw_input') as mock_input:
+            ## Sequence raw input 
+            mock_input.side_effect = ["-10", "1000", "100"]
+
+            result = FloatField(min_number=1, max_number=100).raw_input()
+            self.assertEqual(mock_input.call_count, 3)
+            self.assertEqual(100, result)
+
 
     def test_string_field(self):
         with patch('__builtin__.raw_input') as mock_input:
             ## Sequence raw input 
             target = "test"
             mock_input.side_effect = [target, "tasdasd", "teadsd"]
-            result = StringField().raw_input()
+            field = StringField()
+            result = field.raw_input()
             self.assertEqual(mock_input.call_count, 1)
+
+
+        ## test max length 
+        print 'bigger 8\n'
+        with patch('__builtin__.raw_input') as mock_input:
+            ## Sequence raw input 
+            mock_input.side_effect = ["1"*10, "1"*50, "1"*5]
+
+            print result
+            field = StringField(max_length=8)
+            result = field.raw_input()
+            self.assertEqual(mock_input.call_count, 3)
+            self.assertEqual("1"*5, result)
+
+
+        ## test min number 
+        print 'smaller 1\n'
+        with patch('__builtin__.raw_input') as mock_input:
+            ## Sequence raw input 
+            mock_input.side_effect = ["", "2"*5]
+
+            field = StringField(min_length=1)
+            result = field.raw_input()
+            self.assertEqual(mock_input.call_count, 2)
+            self.assertEqual("2"*5, result)
+
+
+        ## test between
+        print 'between 10 30\n'
+        with patch('__builtin__.raw_input') as mock_input:
+            ## Sequence raw input 
+            mock_input.side_effect = ["a", "a"*100, "a"*20]
+
+            field = StringField(min_length=10, max_length=30)
+            result = field.raw_input()
+            self.assertEqual(mock_input.call_count, 3)
+            self.assertEqual("a"*20, result)
+
+

@@ -13,9 +13,11 @@ class DateTimeField(Field):
             validators.append(lambda x: self.to_data(x) >= start_time)
         if isinstance(end_time, datetime):
             validators.append(lambda x: self.to_data(x) <= end_time)
-        self.default_description = '''
-            datetime, format:         
-        ''' + self.datetime_format 
+        self.default_description = " datetime, format: " + self.datetime_format 
+        if start_time:
+            self.default_description += ", starting from " + str(start_time)
+        if end_time:
+            self.default_description += ", and ends from " + str(end_time)
 
         validators.append(lambda x: isinstance(datetime.strptime(x, self.datetime_format), datetime))
 

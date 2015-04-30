@@ -31,7 +31,7 @@ class Field(object):
         description = self.description
         print self.description_format.format(**locals())
         while True:
-            _input = raw_input("{}:".format(name))
+            _input = raw_input("{}: ".format(name))
             try:
                 if self.strip:
                     _input = _input.strip()

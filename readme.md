@@ -5,6 +5,14 @@ This is a tool which helps you on command line input.
 When doing command line input, we often need to type a lot of parameters, and those are fixed and even hard to remember.  
 In raw_input_plus, we define some fields which user can utilize easily.  
 
+##Installation
+
+```
+git clone https://github.com/georgefs/raw_input_plus.git
+cd raw_input_plus
+python setup.py install
+```
+
 ##Usage
 
 you can put your own description or just use the deafult ones.

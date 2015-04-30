@@ -21,7 +21,7 @@ class StringField(Field):
             validators.append(lambda v:len(v) >= min_length)
 
         if isinstance(regexp, basestring):
-            validators.append(lambda v:re.match(regex, v))
+            validators.append(lambda v:re.match(regexp, v))
         
         kwargs.update({"validators": validators})
         return super(StringField, self).__init__(*args, **kwargs)

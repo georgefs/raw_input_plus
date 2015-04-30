@@ -28,7 +28,7 @@ class ChoiceField(Field):
         kwargs.update({"validators": validators})
 
         options_str = ["{} : {}".format(name, value) for name, value in choice.items()]
-        options_str = "\n".join(options_str)
+        options_str = "\n".join(options_str[::-1])
         
         self.default_description = '''
             choice input

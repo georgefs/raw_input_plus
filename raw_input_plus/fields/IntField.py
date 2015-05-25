@@ -11,7 +11,9 @@ import numbers
 
 class IntField(Field):
     default_validators = [lambda v:re.match("^-?\d+$", v)]
-    default_description = " int "
+    default_description = '''
+        integer
+    '''
     def __init__(self, max_number=None, min_number=None, validators=None, *args, **kwargs):
         validators = validators or []
         if isinstance(max_number, numbers.Number):

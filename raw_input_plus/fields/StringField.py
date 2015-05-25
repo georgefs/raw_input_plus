@@ -11,7 +11,9 @@ import re
 
 class StringField(Field):
     default_validators = []
-    default_description = " string "
+    default_description = '''
+        string
+    '''
     def __init__(self, max_length=None, min_length=None, regexp=None, validators=None, *args, **kwargs):
         validators = validators or []
         if isinstance(max_length, int):

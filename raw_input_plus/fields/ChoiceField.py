@@ -28,12 +28,13 @@ class ChoiceField(Field):
         kwargs.update({"validators": validators})
 
         options_str = ["{} : {}".format(name, value) for name, value in choice.items()]
-        options_str = "\n".join(options_str[::-1])
+        options = sorted(options_str)
+        options = "\n".join(options)
         
         self.default_description = '''
             choice input
             \n{}
-        '''.format(options_str)
+        '''.format(options)
 
         return super(ChoiceField, self).__init__(*args, **kwargs)
     

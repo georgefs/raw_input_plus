@@ -17,7 +17,8 @@ class ChoiceField(Field):
 
         if isinstance(choice, (list, tuple)):
             count = 0
-            choice = dict((str(idx), choice[idx]) for idx in range(len(choice)) )
+        ch = dict((idx, choice[idx]) for idx in range(len(choice)) )
+        choice = dict((str(idx), choice[idx]) for idx in range(len(choice)) )
 
         validators = validators or []
         assert choice, 'error not set '
@@ -27,9 +28,8 @@ class ChoiceField(Field):
             
         kwargs.update({"validators": validators})
 
-        options_str = ["{} : {}".format(name, value) for name, value in choice.items()]
-        options = sorted(options_str)
-        options = "\n".join(options)
+        options_str = ["{} : {}".format(v, ch[v]) for v in ch]
+        options = "\n".join(options_str)
         
         self.default_description = '''
             choice input

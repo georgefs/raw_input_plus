@@ -8,7 +8,6 @@
 
 from raw_input_plus.base import Field
 import re
-import collections
 
 class ChoiceField(Field):
     default_validators = []
@@ -17,8 +16,10 @@ class ChoiceField(Field):
 
         if isinstance(choice, (list, tuple)):
             count = 0
-        ch = dict((idx, choice[idx]) for idx in range(len(choice)) )
-        choice = dict((str(idx), choice[idx]) for idx in range(len(choice)) )
+            ch = dict((idx, choice[idx]) for idx in range(len(choice)) )
+            choice = dict((str(idx), choice[idx]) for idx in range(len(choice)) )
+        else:
+            ch = choice
 
         validators = validators or []
         assert choice, 'error not set '

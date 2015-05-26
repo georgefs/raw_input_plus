@@ -14,3 +14,4 @@ from FileField import FileField
 from FloatField import FloatField
 from IPAddressField import IPAddressField
 from EmailField import EmailField
+from BoolField import BoolField

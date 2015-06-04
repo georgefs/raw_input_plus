@@ -32,6 +32,8 @@ class Field(object):
         print self.description_format.format(**locals())
         while True:
             _input = raw_input("{}: ".format(name))
+            if not _input and self.null and not hasattr(self, 'default'):
+                raise Exception('cannot be blank')
             try:
                 if self.strip:
                     _input = _input.strip()

@@ -10,19 +10,17 @@ from raw_input_plus.base import Field
 class BoolField(Field):
     #default_validators = [lambda x: x=='0' or x=='1']
     default_validators = []
-    default_description = '''
-        0 : true
-        1 : false
-    '''
 
-    def __init__(self, validators=None, *args, **kwargs):
-        
+    def __init__(self, description='', validators=None, *args, **kwargs):
+
+        self.default_description = description + "\n\t0 : true\n\t1 : false\t"
+
         return super(BoolField, self).__init__(*args, **kwargs)
 
     def to_data(self, value):
         if value == '0':
-            return "true"
+            return "boolTrue"
         elif value == '1':
-            return "false"
+            return "boolFalse"
         raise Exception('error')
         
